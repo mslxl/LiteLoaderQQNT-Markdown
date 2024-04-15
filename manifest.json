@@ -5,22 +5,18 @@
     "slug": "markdown_it",
     "icon": "./icon.png",
     "description": "为 QQNT 提供 Markdown 渲染",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "authors": [
         {
-            "name": "d0j1a_1701 ",
+            "name": "d0j1a_1701",
             "link": "https://github.com/d0j1a1701"
-        },
-        {
-            "name": "CJReinforce",
-            "link": "https://github.com/CJReinforce"
         }
     ],
     "repository": {
         "repo": "d0j1a1701/LiteLoaderQQNT-Markdown",
         "branch": "v4",
         "release": {
-            "tag": "1.0.0"
+            "tag": "1.1.0"
         }
     },
     "platform": [
