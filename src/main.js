@@ -8,7 +8,6 @@ function onLoad() {
     const plugin_path = LiteLoader.plugins["markdown_it"].path.plugin;
     const hljs = require(`${plugin_path}/src/lib/highlight.js`);
     const katex = require(`${plugin_path}/src/lib/markdown-it-katex.js`);
-    const pangu = require(`${plugin_path}/src/lib/markdown-it-pangu.js`)
     const mark = require(`${plugin_path}/src/lib/markdown-it.js`)({
         html: true, // 在源码中启用 HTML 标签
         xhtmlOut: true, // 使用 '/' 来闭合单标签 （比如 <br />）。
@@ -47,9 +46,7 @@ function onLoad() {
                 "</code></pre>"
             );
         }
-    })
-        .use(katex)
-        .use(pangu);
+    }).use(katex);
     ipcMain.handle("LiteLoader.markdown_it.render", (event, content) => {
         // console.log(`[Markdown-It] Rendering content: \n${mark.render(content)}`);
         return mark.render(content);
