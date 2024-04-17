@@ -17,9 +17,9 @@ function render() {
             // 标记已渲染 markdown，防止重复执行导致性能损失
             messageBox.classList.add('markdown-rendered')
 
-            // 消息都在 span 里
+            // 消息都存在以 `-element` 结尾的 class，e.g. text-element, pic-element
             const spanElem = Array.from(messageBox.childNodes)
-                .filter((e) => e.tagName == 'SPAN')
+                .filter((e) => e.className && e.className.indexOf("-element") != -1)
 
             if (spanElem.length == 0) return
 
