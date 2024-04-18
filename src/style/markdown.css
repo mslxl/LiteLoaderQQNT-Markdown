@@ -56,6 +56,11 @@ td {
     padding: 8px;
 }
 
+.message-content pre {
+    overflow-x: auto;
+}
+
+
 span.katex-html {
     margin: 8px;
 }
