@@ -5,6 +5,42 @@ onLoad();
 
 // 加载插件时触发
 function onLoad() {
+    // markdownit 规则
+    // 给 img 套上和 QQ 一样的样式，以达成相同的显示效果
+    const qqImage = (md) => {
+        const image = md.renderer.rules.image
+        md.renderer.rules.image = (...args) => {
+            let raw = image(...args)
+            // QQ 采用了 vue scoped，不能使用 class 来复用样式
+            // 此处直接复制粘贴了 QQ 9.9.9-22868 的样式
+            raw = raw.replace("<img", `<img class="image-content" style="
+                height: 100%;
+                image-rendering: -webkit-optimize-contrast;
+                object-fit: cover;
+                object-position: center top;
+                text-indent: 100%;
+                width: 100%;"`)
+            return `
+                <div class="image pic-element" role="img" aria-label="图片" style="
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    max-width: 100%;
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    margin: 4px 0px;
+
+                    line-height: 0;
+                    position: relative;
+                    user-select: none;
+                ">
+                    ${raw}
+                </div>
+            `
+        }
+    }
+
     const plugin_path = LiteLoader.plugins["markdown_it"].path.plugin;
     const hljs = require(`${plugin_path}/src/lib/highlight.js`);
     const katex = require(`${plugin_path}/src/lib/markdown-it-katex.js`);
@@ -46,7 +82,9 @@ function onLoad() {
                 "</code></pre>"
             );
         }
-    }).use(katex);
+    })
+        .use(katex)
+        .use(qqImage);
     ipcMain.handle("LiteLoader.markdown_it.render", (event, content) => {
         // console.log(`[Markdown-It] Rendering content: \n${mark.render(content)}`);
         return mark.render(content);
